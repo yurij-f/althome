@@ -1,0 +1,585 @@
+.wrapper
+  display: grid
+  grid-template: auto 1fr auto / 1fr
+  grid-template-areas: "header" "content" "footer"
+
+.header
+  grid-area: header
+  background-color: $bgColor
+  &__body
+    padding: rem(10) 0
+    min-height: rem(80)
+    display: grid
+    grid-template-columns: auto 1fr minmax(100px, 200px) auto
+    @include adaptiveValue("column-gap", 64, 30, 1)
+    align-items: center
+    @media (max-width: $mobile)
+      grid-template-columns: auto minmax(100px, 200px) 1fr auto
+    @media (max-width: $mobileSmall)
+      grid-template: repeat(3, 1fr) / 1fr auto
+      gap: rem(20)
+  &__nav
+    @media (max-width: $mobile)
+      position: absolute
+      width: 100%
+      height: 100%
+      background-color: rgba(0, 0, 0, 0.8)
+      top: 0
+      left: -100%
+      z-index: 2
+      overflow: auto
+      padding: rem(45) 0 0 rem(30)
+      transition: left 0.3s ease 0s
+      &._open
+        left: 0
+    @media(min-width: $mobile)
+      max-width: rem(382)
+  &__menu-list
+    display: flex
+    flex-wrap: wrap
+    @include adaptiveValue("column-gap", 64, 30, 1400, 992, 1)
+    @include adaptiveValue("row-gap", 10, 0)
+    @media(max-width: $mobile)
+      flex-direction: column
+      row-gap: rem(15)
+  &__menu-item
+    flex-grow: 1
+  &__menu-link
+    color: $serviceColor
+    line-height: math.div(20, 16) * 100%
+    padding: rem(5) 0
+    @media (any-hover: hover)
+      &:hover
+        color: #097278
+    @media(max-width: $mobile)
+      font-size: rem(20)
+  &__logo
+    justify-self: center
+    transform: translateY(-5px)
+    @media (max-width: $mobile)
+      justify-self: start
+  &__search
+    position: relative
+  &__search._active .search-form__input
+    transform: scale(1)
+    padding: rem(5) rem(10)
+    width: 100%
+  &__user-login,
+  &__user-registration
+    line-height: math.div(20, 16) * 100%
+    color: $serviceColor
+    @media (any-hover: hover)
+      &:hover
+        color: #097278
+  &__user-nav
+    @media (max-width: $tablet)
+      justify-self: end
+    @media (max-width: $mobileSmall)
+      justify-self: start
+    span
+      line-height: math.div(20, 16) * 100%
+  &__burger
+    @media(max-width: $mobileSmall)
+      grid-column: 2 / 3
+      grid-row: 1 / -1
+      align-self: start
+      transform: translateY(10px)
+
+.search-form
+  position: absolute
+  top: -10px
+  left: 0
+  display: flex
+  justify-content: flex-end
+  max-width: rem(200)
+  @media (max-width: $tablet)
+    justify-content: flex-start
+  width: 100%
+  &__input
+    height: rem(22)
+    border-radius: rem(10)
+    margin-left: rem(5)
+    transition: all 0.3s ease 0s
+    width: 0
+    transform: scale(0)
+    @media (max-width: $mobileSmall)
+      width: 100%
+      transform: scale(1)
+      padding: rem(5) rem(10)
+  &__btn
+    &::before
+    color: $serviceColor
+
+
+.page
+  grid-area: content
+
+.promo-page
+  background-color: $bgColor
+  @include adaptiveValue("padding-bottom", 100, 50)
+  @media (max-width: $tablet)
+    padding-top: rem(30)
+  &__body
+    width: 100%
+    position: relative
+  &__slider
+    height: 100%
+    max-width: rem(1263)
+    margin-left: rem(116)
+    @media (max-width: $tablet)
+      margin-left: 0
+
+
+.slider-promo
+  position: relative
+  &__swiper
+    margin-bottom: rem(10)
+  &__panel
+    width: 100%
+    display: flex
+    flex-direction: row
+    @media (max-width: $tablet)
+      flex-direction: row-reverse
+      row-gap: rem(20)
+    @media (max-width: $mobile)
+      row-gap: rem(15)
+    @media (max-width: em(580))
+      flex-direction: column-reverse
+
+.slider-panel
+  position: absolute
+  width: 100%
+  left: 0
+  bottom: rem(10)
+  @media (max-width: em(580))
+    position: static
+  &__social
+    flex: 1 1 auto
+  &__control
+    flex: 0 1 math.div(795, 1263) * 100%
+
+.social
+  &__list
+    display: flex
+    align-items: flex-end
+    height: 100%
+    @media(max-width: $tablet)
+      align-items: center
+  &__item
+    &:not(:last-child)
+      @include adaptiveValue("margin-right", 73, 50)
+
+.control-panel
+  display: flex
+  justify-content: space-between
+  &__fraction
+    margin-right: rem(30)
+    @include adaptiveValue("font-size", 32, 20)
+    line-height: math.div(48, 32)
+    color: #fff
+    display: flex
+    align-items: center
+    @media (max-width: em(580))
+      color: $serviceColor
+
+.slider-arrows
+  display: grid
+  grid-template-columns: auto
+  grid-auto-flow: column
+  span
+    width: rem(4)
+    height: rem(64)
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #fff
+    &::after
+      content: ""
+      width: rem(2)
+      height: rem(32)
+      background-color: #d5dfe5
+  @media (max-width: $mobile)
+    display: none
+
+.promo-slider-slide
+  width: 100%
+  display: flex
+  justify-content: flex-end
+  flex-wrap: wrap
+  position: relative
+  @media (max-width: $tablet)
+    row-gap: rem(20)
+  &__image
+    padding: 0 0 40% 0
+    width: math.div(795, 1263) * 100%
+    &::before
+      content: ""
+      position: absolute
+      left: 0
+      top: 0
+      z-index: 2
+      height: 100%
+      width: rem(210)
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%)
+    @media (max-width: $tablet)
+      width: 100%
+  &__content
+    z-index: 3
+    width: math.div(678, 1263) * 100%
+    @media (min-width: $tablet)
+      position: absolute
+      left: 0
+      top: 0
+    @media (min-width: em(1338))
+      top: rem(80)
+    @media (max-width: $tablet)
+      width: 100%
+
+.promo-content
+  &__text
+    opacity: 0.3
+    position: relative
+    &:not(:last-child)
+      margin-bottom: rem(8)
+  &__title
+    @include adaptiveValue("font-size", 44, 30)
+    line-height: math.div(52, 44) * 100%
+    font-weight: 700
+    &:not(:last-child)
+      margin-bottom: em(12, 44)
+  &__release
+    @include adaptiveValue("font-size", 22, 15)
+    line-height: math.div(34, 22) * 100%
+    &:not(:last-child)
+      @include adaptiveValue("margin-bottom", 40, 10)
+
+
+.article-page
+  @include adaptiveValue("padding-top", 100, 60, 1)
+  @include adaptiveValue("padding-bottom", 100, 60, 1)
+  &__wrapper
+    display: grid
+    grid-template-columns: repeat(12, 1fr)
+    column-gap: rem(24)
+    position: relative
+    &::before
+      content: "01"
+      position: absolute
+      left: rem(117)
+      top: 0
+      font-weight: 700
+      @include adaptiveValue("font-size", 64, 40, 1)
+      line-height: math.div(64, 64) * 100%
+      color: #EAF2F6
+    &::after
+      content: "Место"
+      position: absolute
+      left: rem(117)
+      top: rem(64)
+      @include adaptiveValue("font-size", 64, 40, 1)
+      line-height: math.div(64, 64) * 100%
+      color: #EAF2F6
+      font-weight: 700
+      writing-mode: vertical-lr
+      transform: scale(-1, -1) translateY(-40px)
+    @media (max-width: $mobile)
+      &::before,
+      &::after
+        display: none
+  &__header
+    grid-column: 5 / 9
+    margin-bottom: rem(25)
+    @media (max-width: em(1160))
+      grid-column: 4 / 10
+    @media (max-width: $mobile)
+      grid-column: 3 / 11
+    @media (max-width: $mobileSmall)
+      grid-column: 1 / -1
+  &__content
+    grid-column: 1 / -1
+
+.header-block
+  &__title_small
+    position: relative
+    padding: 0 0 0 rem(115)
+    line-height: math.div(20, 16) * 100%
+    color: $serviceColor
+    &:not(:last-child)
+      @include adaptiveValue("margin-bottom", 60, 40)
+    &::before
+      counter-increment: section-counter
+      content: "0" counter(section-counter)
+      position: absolute
+      left: 0
+      top: 0
+      font-weight: 300
+      line-height: math.div(20, 16) * 100%
+      color: $serviceColor
+    &::after
+      content: ""
+      position: absolute
+      width: rem(81)
+      height: rem(1)
+      left: rem(25)
+      top: rem(9)
+      border-top: 1px solid $serviceColor
+  &__title_big
+    font-weight: 700
+    @include adaptiveValue("font-size", 32, 20)
+    line-height: math.div(48, 32) * 100%
+
+.article-content
+  display: grid
+  grid-template-columns: repeat(12, 1fr)
+  column-gap: rem(24)
+  & p
+    font-weight: 300
+    line-height: math.div(32, 16) * 100%
+    &:not(:last-child)
+      margin-bottom: rem(24)
+  & > *
+    grid-column: 5 / 9
+    @media (max-width: em(1160))
+      grid-column: 4 / 10
+    @media (max-width: $mobile)
+      grid-column: 3 / 11
+    @media (max-width: $mobileSmall)
+      grid-column: 1 / -1
+  &__image
+    margin-bottom: rem(24)
+    img
+      width: 100%
+      height: 100%
+  &__aside_right
+    grid-column: -4 / -2
+  &__aside_left
+    grid-column: 2 / 4
+  &__aside_left,
+  &__aside_right
+    font-weight: 300
+    font-size: rem(14)
+    line-height: math.div(24, 14) * 100%
+    @media (max-width: em(1160))
+      grid-column: 4 / 10
+    @media (max-width: $mobile)
+      grid-column: 3 / 11
+    @media (max-width: $mobileSmall)
+      grid-column: 1 / -1
+  &__image_big
+    grid-column: 2 / -2
+    @media (max-width: $mobile)
+      grid-column: 1 / -1
+  &__quote
+    grid-column: 4 / 10
+    margin-bottom: rem(24)
+    font-size: rem(22)
+    line-height: math.div(40, 22) * 100%
+    max-width: rem(648)
+    position: relative
+    padding-left: rem(28)
+    padding-top: rem(8)
+    padding-bottom: rem(8)
+    &::before
+      content: ""
+      position: absolute
+      width: rem(2)
+      height: math.div(152, 160) * 100%
+      background-color: $serviceColor
+      left: 0
+      top: 0
+    @media (max-width: $mobile)
+      grid-column: 3 / 11
+    @media (max-width: $mobileSmall)
+      grid-column: 1 / -1
+  &__button
+    width: rem(289)
+    height: rem(52)
+    margin-top: rem(16)
+
+.catalog-page
+  @include adaptiveValue("padding-top", 100, 60)
+  @include adaptiveValue("padding-bottom", 140, 80)
+  background-color: $bgColor
+  &__header
+    display: grid
+    grid-template: auto auto / 1fr
+    justify-items: center
+    &:not(:last-child)
+      @include adaptiveValue("margin-bottom", 40, 30, 1)
+  &__items
+    display: grid
+    grid-template: auto auto / 1fr
+    row-gap: rem(24)
+  &__row_top
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(327px, 1fr))
+    gap: rem(24)
+    @media (max-width: $mobileSmall)
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr))
+  &__row_bottom
+    display: grid
+    grid-template-rows: auto
+    justify-items: center
+
+.catalog-item
+  display: flex
+  flex-direction: column
+  @media (max-width: em(1410))
+    &:last-child
+      grid-column: span 3
+  @media (max-width: em(1058))
+    &:last-child
+      grid-column: span 1
+  &_gorizontal
+    display: grid
+    min-width: rem(912)
+    grid-template: 1fr / 327px auto
+    @media (max-width: $tablet)
+      grid-template: auto auto / minmax(290px, 1fr)
+      min-width: 100%
+  &__image
+    padding: 0 0 67% 0
+    @media (max-width: $mobileSmall)
+      width: 100%
+  &__image_gorizontal
+    padding: 0 0 61% 0
+    @media (max-width: $tablet)
+      padding: 0 0 67% 0
+  &__body
+    padding: rem(16) rem(34) rem(24) rem(24)
+    background-color: #fff
+    display: flex
+    flex-direction: column
+  &__title
+    font-size: rem(22)
+    line-height: math.div(34, 22) * 100%
+    margin-bottom: rem(8)
+    @media (any-hover: hover)
+      &:hover
+        text-decoration: underline
+  &__text
+    line-height: math.div(20, 16) * 100%
+    opacity: 0.3
+    margin-bottom: rem(20)
+  &__list
+    display: grid
+    grid-template: auto auto / repeat(3, 1fr)
+    grid-auto-flow: column
+    column-gap: rem(50)
+    @media (max-width: $mobileSmall)
+      column-gap: rem(35)
+    padding-top: rem(16)
+    border-top: 2px solid $bgColor
+  &__term
+    font-weight: 300
+    font-size: rem(32)
+    line-height: math.div(36, 32) * 100%
+  &__desc
+    font-weight: 300
+    line-height: math.div(20, 16) * 100%
+
+
+.contact-us
+  &__wrapper
+    display: flex
+    flex-wrap: wrap
+  @media (max-width: $tablet)
+    flex-direction: column
+  &__body
+    flex: 1 1 50%
+    @media (max-width: $tablet)
+      flex: 1 1 100%
+  &__image
+    padding: 0 0 53.4% 0
+    flex: 1 1 48%
+    @media (max-width: $tablet)
+      flex: 1 1 100%
+    @media (max-width: $tablet)
+      margin: 0 rem(-15)
+  &__body
+    @include adaptiveValue("padding-top", 85, 60)
+    @include adaptiveValue("padding-bottom", 100, 60)
+    @include adaptiveValue("padding-left", 117, 30)
+    @include adaptiveValue("padding-right", 120, 60)
+  &__header
+    &:not(last-child)
+      margin-bottom: rem(24)
+
+.contact-form
+  display: grid
+  grid-template: repeat(5, auto) / 1fr
+  row-gap: rem(20)
+  max-width: rem(444)
+  &__row_top
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr))
+    column-gap: rem(24)
+    row-gap: rem(10)
+  &__row_bottom
+    margin-top: rem(10)
+    display: grid
+    grid-template-columns: 1fr 1fr
+    column-gap: rem(24)
+  &__row_button
+    margin-top: rem(20)
+  &__label
+    display: block
+    margin-bottom: rem(4)
+    font-size: rem(12)
+    line-height: math.div(18, 12) * 100%
+  &__checkbox-label
+    font-weight: 300
+    font-size: rem(12)
+    line-height: math.div(16, 12) * 100%
+  &__field
+    font-weight: 300
+    line-height: math.div(20, 16) * 100%
+    opacity: 0.7
+    border: 1px solid #CFDCE3
+    padding: rem(12) 0 rem(12) rem(16)
+    width: 100%
+  &__btn
+    width: rem(155)
+    height: rem(44)
+
+
+
+.footer
+  grid-area: footer
+  background-color: $bgColor
+  &__row
+    display: grid
+    min-height: rem(60)
+    padding: rem(20) 0
+    grid-template-columns: auto 1fr auto
+    @include adaptiveValue("column-gap", 64, 30)
+    align-items: center
+    @media (max-width: em(810))
+      grid-template: repeat(3, auto) / 1fr
+      @include adaptiveValue("row-gap", 40, 25)
+  &__copyright
+    color: rgba(51, 51, 51, 0.3)
+    line-height: math.div(20, 16) * 100%
+  &__copyright span
+    color: $serviceColor
+
+.nav-footer-list
+  display: flex
+  flex-wrap: wrap
+  max-width: rem(654)
+  justify-content: center
+  @include adaptiveValue("column-gap", 64, 30)
+  @media (min-width: em(810))
+    justify-self: center
+  @media (max-width: em(810))
+    display: block
+  &__link
+    color: $serviceColor
+    line-height: math.div(20, 16) * 100%
+    @media (any-hover: hover)
+      &:hover
+        color: #097278
+  &__item
+    @media (max-width: em(810))
+      &:not(:last-child)
+        margin-bottom: rem(20)
